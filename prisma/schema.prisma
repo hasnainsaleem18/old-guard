@@ -1,0 +1,46 @@
+// Prisma schema for OLX Guard
+// PostgreSQL (e.g. Neon free tier) — works both locally and on Vercel.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  name      String?
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  analyses  Analysis[]
+}
+
+model Analysis {
+  id        String   @id @default(cuid())
+  listing   String
+  verdict   String // SAFE | RISKY | SCAM
+  riskScore Int
+  summary   String
+  redFlags  String // JSON-encoded string[]
+  questions String // JSON-encoded string[]
+  engine    String   @default("heuristic")
+  toolsUsed String? // JSON-encoded string[] of tools the agent called
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// A small "reputation database" the agent can query as a tool.
+model ReportedNumber {
+  id      String  @id @default(cuid())
+  number  String  @unique
+  reports Int     @default(1)
+  reason  String?
+}
