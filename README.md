@@ -13,19 +13,20 @@ This is a full-stack, agentic AI application written entirely in **TypeScript**.
 
 ## What's inside (the tech stack)
 
-| Layer | Tool | What it does |
-| --- | --- | --- |
-| Language | **TypeScript** | One language for the whole app |
-| Framework | **Next.js 16** (App Router) | Frontend pages **and** backend API in one project |
-| UI | **React 19 + Tailwind CSS 4** | The interface |
-| Auth | **Auth.js (NextAuth v5)** | Email + password login, sessions (JWT) |
-| Database | **SQLite + Prisma** | Stores users and their saved analyses |
-| AI | **Vercel AI SDK + Google Gemini** | The scam-detection "agent" |
-| Validation | **Zod** | Checks all incoming data |
+- **Language:** TypeScript — one language across the whole app
+- **Framework:** Next.js 16 (App Router) — frontend and backend in one project
+- **Frontend / UI:** React 19 + Tailwind CSS 4
+- **AI / Agent:** Vercel AI SDK + Groq (Llama / GPT-OSS) — the tool-using agent and its reasoning loop
+- **Authentication:** Auth.js (NextAuth v5) — email/password login with JWT sessions
+- **Database:** PostgreSQL (hosted on Neon)
+- **ORM (database access):** Prisma — lets TypeScript talk to PostgreSQL
+- **Validation:** Zod — checks all incoming data
+- **Hosting / Deployment:** Vercel — auto-deploys on every `git push`
+- **Version control:** Git + GitHub
 
-> **No AI key? No problem.** If you don't set a Gemini key, the app falls back
-> to a built-in rules engine so everything still works. Add a key later to get
-> smarter AI-powered analysis.
+> **No AI key? No problem.** If you don't set a `GROQ_API_KEY`, the app falls
+> back to a built-in rules engine so everything still works. Add a key to get
+> the full tool-using AI agent. (Google Gemini is also supported if you prefer.)
 
 ---
 
